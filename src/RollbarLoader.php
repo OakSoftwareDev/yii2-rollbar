@@ -21,7 +21,7 @@ class RollbarLoader extends Component
         'environment'         => YII_ENV,
         'enabled'             => true,
         'root'                => '@app',
-        'capture_username'    => true,  // to send person.username if set
+        'capture_username'    => true,  // will send person.username if set
         'use_error_reporting' => true,  // will send all errors covered by error_reporting() setting
         'included_errno'      => -1,    // otherwise rollbar skips notices, use ROLLBAR_INCLUDED_ERRNO_BITMASK constant for default rollbar behavior
         'scrub_fields'        => ['passwd', 'password', 'secret', 'confirm_password', 'password_confirmation', 'auth_token', 'csrf_token', '_csrf'],
@@ -85,7 +85,6 @@ class RollbarLoader extends Component
 
     /**
      * Send log to Rollbar.
-     *
      * @param string $level      Severity level as defined in Rollbar
      * @param mixed  $toLog      The thing to be logged (message, exception, error)
      * @param array  $extra      Extra params to be sent along with the payload

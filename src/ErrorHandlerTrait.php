@@ -7,6 +7,7 @@ use Rollbar\Rollbar;
 use Yii;
 use yii\base\ErrorException;
 use yii\helpers\ArrayHelper;
+use fl0v\yii2\rollbar\helpers\GetRollbarTrait;
 
 /**
  * Handles yii errors both in web and console.
@@ -18,14 +19,7 @@ use yii\helpers\ArrayHelper;
  *      // In console config fl0v\yii2\rollbar\handlers\ConsoleErrorHandler should be used
  *      'class' => 'fl0v\yii2\rollbar\handlers\WebErrorHandler',
  *
- *      'skipExceptions' => [
- *          // will not send any User Exceptions
- *          ['yii\base\UserException'],
- *          // will not send http exceptions with codes 403 and 404, other response codes will be logged
- *          ['yii\web\HttpException', 'statusCode' => [403,404]],
- *      ],
- *
- *      'payloadDataCallback' => function ($errorHandler) {
+ *      'payload' => function ($errorHandler) {
  *          return [
  *              // For payload data to be shown in rollbar you nead to use `custom_data_method_context` key
  *              'custom_data_method_context' => [
@@ -42,14 +36,6 @@ trait ErrorHandlerTrait
     use GetRollbarTrait;
 
     /**
-     * @var array exceptions to be ignored when sending to rollbar
-     * @see logExceptionRollbar()
-     */
-    public $skipExceptions = [
-        ['yii\web\HttpException', 'statusCode' => [404]],
-    ];
-
-    /**
      * @var null|array|callable Array data or callback returning a payload data associative array or null.
      *                          For payload data to show up in rollbar it neads to be put inside `custom_data_method_context` key.
      * @see buildPayload()
@@ -64,48 +50,13 @@ trait ErrorHandlerTrait
      */
     public function logException($exception)
     {
-        $this->logExceptionRollbar($exception);
-        parent::logException($exception);
-    }
-
-    /**
-     * Will call rollbar api.
-     * Checks against $skipExceptions and Rollbar::logger()->shouldIgnoreError
-     * @param mixed $exception
-     * @see
-     */
-    protected function logExceptionRollbar($exception)
-    {
-        if (! $this->rollbar || ! $this->rollbar->enabled) {
-            return;
-        }
-
-        foreach ($this->skipExceptions as $row) {
-            if ($exception instanceof $row[0]) {
-                $skip = true;
-                foreach (array_slice($row, 1) as $property => $range) {
-                    if (! in_array($exception->$property, $range)) {
-                        $skip = false;
-                        break;
-                    }
-                }
-                if ($skip) {
-                    return;
-                }
-            }
-        }
-
-        // Check if an error coming from handleError() should be ignored.
-        if ($exception instanceof ErrorException && Rollbar::logger()->shouldIgnoreError($exception->getCode())) {
-            return;
-        }
-
         $this->rollbar->log(
             $this->getSeverityLevel($exception),
             $exception,
             $this->buildPayload($exception),
             $isUncaught = true
         );
+        parent::logException($exception);
     }
 
     /**

@@ -6,6 +6,7 @@ use Rollbar\Payload\Level;
 use Rollbar\Rollbar;
 use yii\log\Logger;
 use yii\log\Target;
+use fl0v\yii2\rollbar\helpers\GetRollbarTrait;
 
 /**
  * Will send yii log messages to rollbar
@@ -44,21 +45,21 @@ class RollbarTarget extends Target
         if ($this->rollbar && $this->rollbar->enabled) {
             foreach ($this->messages as $row) {
                 list($message, $level, $category, $timestamp) = $row;
-                $extra                                        = [
-                    'category'   => $category,
-                    'request_id' => $this->requestId,
-                    'timestamp'  => $timestamp,
-                ];
                 $this->rollbar->log(
                     $this->getSeverityLevel($level),
                     $message,
-                    $extra
+                    $extra = [
+                        'category'   => $category,
+                        'request_id' => $this->requestId,
+                        'timestamp'  => $timestamp,
+                    ]
                 );
             }
         }
     }
 
     /**
+     * Convert \yii\log\Logger level to Rollbar level.
      * @param  int    $level Severity level as defined in \yii\log\Logger
      * @return string Returns severity level that could be recognized by Rollbar
      */
