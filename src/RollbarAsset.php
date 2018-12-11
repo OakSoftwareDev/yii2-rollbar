@@ -51,8 +51,10 @@ class RollbarAsset extends AssetBundle
     {
         $payload = [
             'environment' => empty($this->environment) ? YII_ENV : $this->environment,
-            'yii_env'     => YII_ENV,
-            'yii_debug'   => YII_DEBUG,
+            'yii'         => [
+                'yii_env'   => YII_ENV,
+                'yii_debug' => YII_DEBUG,
+            ],
         ];
         if (! empty($this->payload)) {
             if (is_callable($this->payload)) {
