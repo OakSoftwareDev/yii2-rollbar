@@ -119,9 +119,10 @@ class RollbarAsset extends AssetBundle
     private function buildPayload()
     {
         $payload = [
-            'server' => [
+            'custom' => [
                 'yii_env'      => YII_ENV,
                 'yii_debug'    => YII_DEBUG,
+                'yii_version'  => \Yii::getVersion(),
                 'app_id'       => \Yii::$app->id,
                 'app_name'     => \Yii::$app->name,
                 'app_language' => \Yii::$app->language,
