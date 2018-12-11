@@ -54,7 +54,7 @@ class RollbarAsset extends AssetBundle
     ';
 
     /**
-     * Ensures we have accessToken and environment.
+     * Ensures we have accessToken and environment and presets serveral yii2 specific information.
      * @throw \Exception if accessToken is missin
      */
     public function init()
@@ -65,6 +65,18 @@ class RollbarAsset extends AssetBundle
         if (empty($this->config['payload']['environment'])) {
             $this->config['payload']['environment'] = YII_ENV;
         }
+        $this->config = ArrayHelper::merge([
+            'payload' => [
+                'server' => [
+                    'host' => gethostname(),
+                ],
+                'custom' => [
+                    'yii_env'     => YII_ENV,
+                    'yii_debug'   => YII_DEBUG,
+                    'yii_version' => \Yii::getVersion(),
+                ],
+            ],
+        ], $this->config);
     }
 
     /**
@@ -120,9 +132,6 @@ class RollbarAsset extends AssetBundle
     {
         $payload = [
             'custom' => [
-                'yii_env'      => YII_ENV,
-                'yii_debug'    => YII_DEBUG,
-                'yii_version'  => \Yii::getVersion(),
                 'app_id'       => \Yii::$app->id,
                 'app_name'     => \Yii::$app->name,
                 'app_language' => \Yii::$app->language,
