@@ -1,0 +1,5 @@
+vendor/
+docs/api/
+composer.lock
+.php_cs.cache
+

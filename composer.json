@@ -1,0 +1,27 @@
+{
+    "name": "fl0v/yii2-rollbar",
+    "description": "Rollbar for Yii2",
+    "type": "yii2-extension",
+    "keywords": ["rollbar", "yii2", "log", "error", "exception", "debug", "monitoring"],
+    "homepage": "http://github.com/fl0v/yii2-rollbar",
+    "require": {
+        "php": ">=7.1",
+        "yiisoft/yii2": "~2.0.13",
+        "rollbar/rollbar": "^1.7"
+    },
+    "require-dev": {
+        "yiisoft/yii2-apidoc": "~2.1.0",
+        "friendsofphp/php-cs-fixer": "~2.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "fl0v\\yii2\\rollbar\\": "src"
+        }
+    },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://asset-packagist.org"
+        }
+    ]
+}
