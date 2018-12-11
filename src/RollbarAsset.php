@@ -4,6 +4,7 @@ namespace fl0v\yii2\rollbar;
 
 use yii\web\AssetBundle;
 use yii\web\View;
+use yii\helpers\ArrayHelper;
 
 /**
  * @see https://docs.rollbar.com/docs/browser-js
