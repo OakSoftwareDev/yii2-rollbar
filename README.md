@@ -8,15 +8,19 @@ Installation
 ------------
 The preferred way to install this extension is through [composer](http://getcomposer.org/download/). 
 
- To install, either run
- ```
- $ php composer.phar require fl0v/yii2-rollbar
- ```
- or add
- ```
- "fl0v/yii2-rollbar": "*"
- ```
- to the `require` section of your `composer.json` file.
+To install, either run
+
+```
+$ php composer.phar require fl0v/yii2-rollbar
+```
+
+or add
+
+```
+"fl0v/yii2-rollbar": "*"
+```
+
+to the `require` section of your `composer.json` file.
 
 Usage
 -----
@@ -75,6 +79,7 @@ class SomeException extends \Exception implements PayloadInterface
 Log Target
 ----------
 You may want to collect your logs produced by `Yii::error()`, `Yii::info()`, etc. in Rollbar.
+
 Put the following code in your config:
 
 ```php
