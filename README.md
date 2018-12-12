@@ -86,3 +86,48 @@ Put the following code in your config:
 ],
 ```
 
+Rollbar Javascript
+------------------
+Rollbar offers Javascript debugger aswell, see https://docs.rollbar.com/docs/javascript.
+To use it in Yii2 there is `fl0v\yii2\rollbar\RollbarAsset` that you  can register in your main template.
+
+RollbarAsset is used independently of the server side component, to configure it use assetManager.
+For the config part of RollbarAsset checkout Rollbar reference https://docs.rollbar.com/docs/rollbarjs-configuration-reference#section-reference.
+```php
+'assetManager' => [
+    ...
+    'bundles' => [
+        ....
+        'fl0v\yii2\rollbar\RollbarAsset' => [
+            // Rollbar configuration
+            'config' => [
+                'enbaled' => true,
+                'accessToken' => '{token}',
+                // initialize payload
+                'payload' => [
+                    'environment' => '{environment}',
+                    'client' => [
+                        'javascript' => [
+                            'code_version' => '...',
+                        ],
+                    ],
+                ],
+            ],
+            // metrics to add to payload, is called when the asset is registered
+            'payload' => function () {
+                return [
+                    'person' => [
+                        'id' => \Yii::$app->has('user') ? (string) \Yii::$app->user->id : null,
+                        'username' => \Yii::$app->has('user') && ! \Yii::$app->user->isGuest ? \Yii::$app->user->identity->username : null,
+                    ],
+                    'custom' => [
+                        'myData' => 'asd',
+                        'key' => uniqid(),
+                    ],
+                ];
+            ],
+        ],
+    ],
+],
+```
+
