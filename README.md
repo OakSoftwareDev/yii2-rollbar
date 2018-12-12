@@ -21,6 +21,7 @@ The preferred way to install this extension is through [composer](http://getcomp
 Usage
 -----
 - Add the component configuration in your **global** config file:
+
 ```php
 'components' => [
     'rollbar' => [
@@ -35,19 +36,21 @@ Usage
 ```
 
 - Add the **web** error handler configuration in your **web** config file:
+
 ```php
 'components' => [
     'errorHandler' => [
-        'class' => 'flob\yii2\rollbar\handlers\WebErrorHandler',
+        'class' => 'fl0v\yii2\rollbar\handlers\WebErrorHandler',
     ],
 ],
 ```
 
 - Add the **console** error handler configuration in your **console** config file:
+
 ```php
 'components' => [
     'errorHandler' => [
-        'class' => 'flob\yii2\rollbar\handlers\ConsoleErrorHandler',
+        'class' => 'fl0v\yii2\rollbar\handlers\ConsoleErrorHandler',
     ],
 ],
 ```
@@ -56,6 +59,7 @@ Payload from your exceptions
 ----------------------------
 If you want your exceptions to send some additional data to Rollbar,
 it is possible by implementing `PayloadInterface`.
+
 ```php
 use fl0v\yii2\rollbar\PayloadInterface;
  
@@ -72,6 +76,7 @@ Log Target
 ----------
 You may want to collect your logs produced by `Yii::error()`, `Yii::info()`, etc. in Rollbar.
 Put the following code in your config:
+
 ```php
 'components' => [
     'log' => [
@@ -93,6 +98,7 @@ To use it in Yii2 there is `fl0v\yii2\rollbar\RollbarAsset` that you  can regist
 
 RollbarAsset is used independently of the server side component, to configure it use assetManager.
 For the config part of RollbarAsset checkout Rollbar reference https://docs.rollbar.com/docs/rollbarjs-configuration-reference#section-reference.
+
 ```php
 'assetManager' => [
     ...
