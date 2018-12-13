@@ -112,19 +112,12 @@ For the config part of RollbarAsset checkout Rollbar reference https://docs.roll
         'fl0v\yii2\rollbar\RollbarAsset' => [
             // Rollbar configuration
             'config' => [
-                'enbaled' => true,
                 'accessToken' => '{token}',
-                // initialize payload
                 'payload' => [
-                    'environment' => '{environment}',
-                    'client' => [
-                        'javascript' => [
-                            'code_version' => '...',
-                        ],
-                    ],
+                    'environment' => '{environment}',                    
                 ],
             ],
-            // metrics to add to payload, is called when the asset is registered
+            // metrics to add to payload, called when the asset is registered
             'payload' => function () {
                 return [
                     'person' => [
