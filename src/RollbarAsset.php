@@ -84,8 +84,10 @@ class RollbarAsset extends AssetBundle
      */
     public function registerAssetFiles($view)
     {
-        $view->registerJs($this->buildJs(), View::POS_HEAD, __CLASS__);
-        return parent::registerAssetFiles($view);
+        if ($this->enabled) {
+            $view->registerJs($this->buildJs(), View::POS_HEAD, __CLASS__);
+            return parent::registerAssetFiles($view);
+        }
     }
 
     public function setConfig($cfg)
