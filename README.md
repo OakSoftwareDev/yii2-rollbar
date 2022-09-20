@@ -4,6 +4,8 @@ Rollbar for Yii2
 This extension is a fork from [baibaratsky/yii2-rollbar](https://github.com/baibaratsky/yii2-rollbar) and [eroteev/yii2-rollbar](https://github.com/eroteev/yii2-rollbar).
 For Yii 1.x use [baibaratsky/yii-rollbar](https://github.com/baibaratsky/yii-rollbar).
 
+2022-09-20 Forked to update rollbar version.
+
 Installation
 ------------
 The preferred way to install this extension is through [composer](http://getcomposer.org/download/). 
@@ -11,13 +13,13 @@ The preferred way to install this extension is through [composer](http://getcomp
 To install, either run
 
 ```
-$ php composer.phar require fl0v/yii2-rollbar
+$ php composer.phar require oaksoftwaredev/yii2-rollbar
 ```
 
 or add
 
 ```
-"fl0v/yii2-rollbar": "*"
+"oaksoftwaredev/yii2-rollbar": "*"
 ```
 
 to the `require` section of your `composer.json` file.
@@ -29,11 +31,20 @@ Usage
 ```php
 'components' => [
     'rollbar' => [
-        'class' => 'fl0v\yii2\rollbar\RollbarLoader',
+        'class' => 'oaksoftwaredev\yii2\rollbar\RollbarLoader',
         'config' => [
             'environment' => '{your_environment}',
             'access_token' => '{rollber_access_token}',
-            // other Rollbar config settings
+            'send_message_trace' => true,
+            'include_exception_code_context' => true,
+            'include_error_code_context' => true,
+            'included_errno' => E_ALL,
+            'enabled' => 'true',
+            'check_ignore' => function($isUncaught, $toLog, $payload) {
+               return \oaksoftwaredev\yii2\rollbar\helpers\IgnoreExceptionHelper::checkIgnore ($toLog, [
+                   ['yii\web\HttpException', 'statusCode' => [400, 404]], // check properties
+                ]);
+            },
         ],
     ],
 ]
@@ -44,7 +55,7 @@ Usage
 ```php
 'components' => [
     'errorHandler' => [
-        'class' => 'fl0v\yii2\rollbar\handlers\WebErrorHandler',
+        'class' => 'oaksoftwaredev\yii2\rollbar\handlers\WebErrorHandler',
     ],
 ],
 ```
@@ -54,7 +65,7 @@ Usage
 ```php
 'components' => [
     'errorHandler' => [
-        'class' => 'fl0v\yii2\rollbar\handlers\ConsoleErrorHandler',
+        'class' => 'oaksoftwaredev\yii2\rollbar\handlers\ConsoleErrorHandler',
     ],
 ],
 ```
@@ -65,7 +76,7 @@ If you want your exceptions to send some additional data to Rollbar,
 it is possible by implementing `PayloadInterface`.
 
 ```php
-use fl0v\yii2\rollbar\PayloadInterface;
+use oaksoftwaredev\yii2\rollbar\PayloadInterface;
  
 class SomeException extends \Exception implements PayloadInterface
 {
@@ -87,7 +98,7 @@ Put the following code in your config:
     'log' => [
         'targets' => [
             [
-                'class' => 'fl0v\yii2\rollbar\RollbarTarget',
+                'class' => 'oaksoftwaredev\yii2\rollbar\RollbarTarget',
                 'levels' => ['error', 'warning', 'info'], // Log levels you want to appear in Rollbar             
                 'categories' => ['application'],
             ],
@@ -99,17 +110,15 @@ Put the following code in your config:
 Rollbar Javascript
 ------------------
 Rollbar offers Javascript debugger aswell, see https://docs.rollbar.com/docs/javascript.
-To use it in Yii2 there is `fl0v\yii2\rollbar\RollbarAsset` that you  can register in your main template.
+To use it in Yii2 there is `oaksoftwaredev\yii2\rollbar\RollbarAsset` that you  can register in your main template.
 
 RollbarAsset is used independently of the server side component, to configure it use assetManager.
 For the config part of RollbarAsset checkout Rollbar reference https://docs.rollbar.com/docs/rollbarjs-configuration-reference#section-reference.
 
 ```php
 'assetManager' => [
-    ...
     'bundles' => [
-        ....
-        'fl0v\yii2\rollbar\RollbarAsset' => [
+        'oaksoftwaredev\yii2\rollbar\RollbarAsset' => [
             // Rollbar configuration
             'config' => [
                 'accessToken' => '{token}',
@@ -124,12 +133,8 @@ For the config part of RollbarAsset checkout Rollbar reference https://docs.roll
                         'id' => \Yii::$app->has('user') ? (string) \Yii::$app->user->id : null,
                         'username' => \Yii::$app->has('user') && ! \Yii::$app->user->isGuest ? \Yii::$app->user->identity->username : null,
                     ],
-                    'custom' => [
-                        'myData' => 'asd',
-                        'key' => uniqid(),
-                    ],
                 ];
-            ],
+            },
         ],
     ],
 ],
