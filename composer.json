@@ -1,13 +1,13 @@
 {
-    "name": "fl0v/yii2-rollbar",
+    "name": "oaksoftwaredev/yii2-rollbar",
     "description": "Rollbar for Yii2",
     "type": "yii2-extension",
     "keywords": ["rollbar", "yii2", "log", "error", "exception", "debug", "monitoring"],
-    "homepage": "http://github.com/fl0v/yii2-rollbar",
+    "homepage": "http://github.com/oaksoftwaredev/yii2-rollbar",
     "require": {
         "php": ">=7.1",
         "yiisoft/yii2": "~2.0.13",
-        "rollbar/rollbar": "^1.7"
+        "rollbar/rollbar": "^2.1"
     },
     "require-dev": {
         "yiisoft/yii2-apidoc": "~2.1.0",
@@ -15,7 +15,7 @@
     },
     "autoload": {
         "psr-4": {
-            "fl0v\\yii2\\rollbar\\": "src"
+            "oaksoftwaredev\\yii2\\rollbar\\": "src"
         }
     },
     "repositories": [
