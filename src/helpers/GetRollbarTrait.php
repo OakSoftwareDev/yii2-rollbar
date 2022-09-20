@@ -1,6 +1,6 @@
 <?php
 
-namespace fl0v\yii2\rollbar\helpers;
+namespace oaksoftwaredev\yii2\rollbar\helpers;
 
 use Yii;
 
