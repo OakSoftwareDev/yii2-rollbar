@@ -1,13 +1,13 @@
 <?php
 
-namespace fl0v\yii2\rollbar;
+namespace oaksoftwaredev\yii2\rollbar;
 
 use Rollbar\Payload\Level;
 use Rollbar\Rollbar;
 use Yii;
 use yii\base\ErrorException;
 use yii\helpers\ArrayHelper;
-use fl0v\yii2\rollbar\helpers\GetRollbarTrait;
+use oaksoftwaredev\yii2\rollbar\helpers\GetRollbarTrait;
 
 /**
  * Handles yii errors both in web and console.
@@ -16,8 +16,8 @@ use fl0v\yii2\rollbar\helpers\GetRollbarTrait;
  *
  * ```php
  *  'errorHandler' => [
- *      // In console config fl0v\yii2\rollbar\handlers\ConsoleErrorHandler should be used
- *      'class' => 'fl0v\yii2\rollbar\handlers\WebErrorHandler',
+ *      // In console config oaksoftwaredev\yii2\rollbar\handlers\ConsoleErrorHandler should be used
+ *      'class' => 'oaksoftwaredev\yii2\rollbar\handlers\WebErrorHandler',
  *
  *      'payload' => function ($errorHandler) {
  *          return [
