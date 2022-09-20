@@ -1,6 +1,6 @@
 <?php
 
-namespace fl0v\yii2\rollbar\helpers;
+namespace oaksoftwaredev\yii2\rollbar\helpers;
 
 /**
  * IgnoreExceptionHelper is used to prevent sending specific exceptions to Rollbar.
@@ -10,11 +10,11 @@ namespace fl0v\yii2\rollbar\helpers;
  * ```php
  * 'components' => [
  *     'rollbar' => [
- *          'class' => 'fl0v\yii2\rollbar\RollbarLoader',
+ *          'class' => 'oaksoftwaredev\yii2\rollbar\RollbarLoader',
  *          'config' => [
  *              // ...
  *              'check_ignore' => function($isUncaught, $toLog, $payload) {
- *                  return \fl0v\yii2\rollbar\helpers\IgnoreExceptionHelper::checkIgnore ($toLog, [
+ *                  return \oaksoftwaredev\yii2\rollbar\helpers\IgnoreExceptionHelper::checkIgnore ($toLog, [
  *                      ['yii\web\HttpException', 'statusCode' => [400, 404]], // check properties
  *                      ['yii\db\Exception', 'getCode' => [2002]], // check method return values
  *                      ['yii\base\InvalidConfigException'], // ignore the exception
