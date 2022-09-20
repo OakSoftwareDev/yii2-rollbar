@@ -1,12 +1,12 @@
 <?php
 
-namespace fl0v\yii2\rollbar;
+namespace oaksoftwaredev\yii2\rollbar;
 
 use Rollbar\Payload\Level;
 use Rollbar\Rollbar;
 use yii\log\Logger;
 use yii\log\Target;
-use fl0v\yii2\rollbar\helpers\GetRollbarTrait;
+use oaksoftwaredev\yii2\rollbar\helpers\GetRollbarTrait;
 
 /**
  * Will send yii log messages to rollbar
