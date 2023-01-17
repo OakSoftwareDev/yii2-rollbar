@@ -5,9 +5,9 @@
     "keywords": ["rollbar", "yii2", "log", "error", "exception", "debug", "monitoring"],
     "homepage": "http://github.com/oaksoftwaredev/yii2-rollbar",
     "require": {
-        "php": ">=7.1",
+        "php": ">=8.0",
         "yiisoft/yii2": "~2.0.13",
-        "rollbar/rollbar": "^2"
+        "rollbar/rollbar": "^3"
     },
     "require-dev": {
         "yiisoft/yii2-apidoc": "~2.1.0",
