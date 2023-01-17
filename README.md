@@ -6,6 +6,8 @@ For Yii 1.x use [baibaratsky/yii-rollbar](https://github.com/baibaratsky/yii-rol
 
 2022-09-20 Forked to update rollbar version.
 
+Use the V3 branch (2.x Releases) for PHP 8.x
+
 Installation
 ------------
 The preferred way to install this extension is through [composer](http://getcomposer.org/download/). 
